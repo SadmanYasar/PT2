@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.cgi": "perl",
+        "iostream": "cpp",
+        "string": "cpp",
+        "istream": "cpp",
+        "cmath": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
