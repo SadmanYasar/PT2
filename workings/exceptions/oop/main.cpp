@@ -2,6 +2,11 @@
 #include "Rectangle.hpp"
 using namespace std;
 
+/*
+================================
+COPY CONSTRUCTOR EXAMPLE
+================================
+*/
 int main()
 {
     Rectangle myRectangle;

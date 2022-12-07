@@ -23,11 +23,12 @@ Rectangle::Rectangle()
     cout << "Constructor Rectangle called" << endl;
 }
 
+// COPY CONSTRUCTOR
 Rectangle::Rectangle(const Rectangle &obj)
 {
     cout << "Copying in progress" << endl;
     ptrY = new int;
-    *ptrY = *obj.ptrY;
+    *ptrY = obj.getY();
     cout << "Done!" << endl;
 }
 
