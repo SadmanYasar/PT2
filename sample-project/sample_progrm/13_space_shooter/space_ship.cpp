@@ -28,7 +28,8 @@ void SpaceShip::shoot()
         }
     }
 
-    if (foundAt != -1){
+    if (foundAt != -1)
+    {
         bullets[foundAt].reset();
         bullets[foundAt].draw();
     }
