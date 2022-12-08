@@ -10,6 +10,7 @@ public:
     class NegativeSize
     {
         // empty class declaration
+        // for exception
     };
 
     Rectangle();

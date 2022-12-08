@@ -51,6 +51,7 @@ int main()
     cin >> x >> y;
     nLine();
 
+    // can use as many catch as required
     while (tryAgain)
     {
         try
@@ -67,6 +68,14 @@ int main()
             cin >> x >> y;
             nLine();
         }
+
+        /*
+        ===================================================
+        If we use a public variable instead of empty object
+        it still works. Need more info on this if its good
+        practice.
+        ===================================================
+        */
     }
 
     cout << "Area: " << myRectangle.getArea() << endl;

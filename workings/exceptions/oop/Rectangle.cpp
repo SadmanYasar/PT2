@@ -8,6 +8,7 @@ void Rectangle::setX(int _x)
 {
     if (_x < 0)
     {
+        // this instantiates an object
         throw NegativeSize();
     }
 
