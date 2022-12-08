@@ -6,6 +6,11 @@ int Rectangle::getX() const { return x; }
 
 void Rectangle::setX(int _x)
 {
+    if (_x < 0)
+    {
+        throw NegativeSize();
+    }
+
     x = _x;
 }
 
@@ -13,6 +18,11 @@ int Rectangle::getY() const { return *ptrY; }
 
 void Rectangle::setY(int _y)
 {
+    if (_y < 0)
+    {
+        throw NegativeSize();
+    }
+
     *ptrY = _y;
 }
 
@@ -36,4 +46,9 @@ Rectangle::~Rectangle()
 {
     delete ptrY;
     cout << "Destructor Rectangle called" << endl;
+}
+
+int Rectangle::getArea() const
+{
+    return x * *ptrY;
 }

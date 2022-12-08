@@ -7,6 +7,11 @@ private:
     int *ptrY;
 
 public:
+    class NegativeSize
+    {
+        // empty class declaration
+    };
+
     Rectangle();
     Rectangle(const Rectangle &);
 
@@ -15,6 +20,8 @@ public:
 
     int getY() const;
     void setY(int);
+
+    int getArea() const;
 
     ~Rectangle();
 };

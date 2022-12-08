@@ -7,7 +7,7 @@ using namespace std;
 COPY CONSTRUCTOR EXAMPLE
 ================================
 */
-int main()
+/* int main()
 {
     Rectangle myRectangle;
 
@@ -26,6 +26,50 @@ int main()
 
     cout << "Rect 1 Y: " << myRectangle.getY() << endl;
     cout << "Rect 2 Y: " << myRectangle2.getY() << endl;
+
+    system("pause");
+    return 0;
+} */
+
+/*
+================================
+OOP EXCEPTION EXAMPLE
+================================
+*/
+void nLine()
+{
+    cout << "\n";
+}
+
+int main()
+{
+    int x, y;
+    bool tryAgain = true;
+    Rectangle myRectangle;
+
+    cout << "Enter x and y: ";
+    cin >> x >> y;
+    nLine();
+
+    while (tryAgain)
+    {
+        try
+        {
+            myRectangle.setX(x);
+            myRectangle.setY(y);
+
+            tryAgain = false;
+        }
+        catch (Rectangle::NegativeSize)
+        {
+            cout << "Negative value entered" << endl;
+            cout << "Please enter non negative values: ";
+            cin >> x >> y;
+            nLine();
+        }
+    }
+
+    cout << "Area: " << myRectangle.getArea() << endl;
 
     system("pause");
     return 0;
