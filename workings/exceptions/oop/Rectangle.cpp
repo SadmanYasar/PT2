@@ -9,7 +9,8 @@ void Rectangle::setX(int _x)
     if (_x < 0)
     {
         // this instantiates an object
-        throw NegativeSize();
+        // throw NegativeSize();
+        throw negSize;
     }
 
     x = _x;
@@ -27,12 +28,7 @@ void Rectangle::setY(int _y)
     *ptrY = _y;
 }
 
-Rectangle::Rectangle()
-{
-    x = 0;
-    ptrY = new int;
-    cout << "Constructor Rectangle called" << endl;
-}
+Rectangle::Rectangle() : x(0), ptrY(new int){};
 
 // COPY CONSTRUCTOR
 Rectangle::Rectangle(const Rectangle &obj)

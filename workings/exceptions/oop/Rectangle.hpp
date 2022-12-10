@@ -7,6 +7,7 @@ private:
     int *ptrY;
 
 public:
+    std::string negSize;
     class NegativeSize
     {
         // empty class declaration

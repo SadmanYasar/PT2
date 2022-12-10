@@ -61,7 +61,7 @@ int main()
 
             tryAgain = false;
         }
-        catch (Rectangle::NegativeSize)
+        catch (string NegativeSize)
         {
             cout << "Negative value entered" << endl;
             cout << "Please enter non negative values: ";
