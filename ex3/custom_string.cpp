@@ -9,9 +9,8 @@
 //! This file is the implementation for the class CustomString.
 //!----------------------------------------------------------------------------------------
 
-
-// Member 1's Name: _____________
-// Member 2's Name: _____________
+// Member 1's Name: Sadman Yasar Sayem
+// Member 2's Name: MD Mosakim Reza
 
 #include <iostream>
 #include <string>
@@ -36,25 +35,33 @@ void CustomString::setData(const string &_data) { data = _data; }
 
 void CustomString::pushFront(const string &s)
 {
+    data.insert(0, s);
 }
 
 void CustomString::pushBack(const string &s)
 {
+    data.append(s);
 }
 
 string CustomString::pop(int index, int count)
 {
-    return "";
+    string subString = data.substr(index, count);
+    data = data.erase(index, count);
+    return subString;
 }
 
 string CustomString::popFront(int count)
 {
-    return "";
+    string subString = data.substr(0, count);
+    data = data.erase(0, count);
+    return subString;
 }
 
 string CustomString::popBack(int count)
 {
-    return "";
+    string substring = data.substr(data.length() - count, count);
+    data = data.erase(data.length() - count, count);
+    return substring;
 }
 
 //! Task 2: Complete the implementation of the following overloaded operators:
@@ -63,12 +70,29 @@ string CustomString::popBack(int count)
 
 CustomString CustomString::operator!() const
 {
-    return CustomString();
+    string dataCopy = data;
+
+    for (int i = 0; i < dataCopy.length(); i++)
+    {
+        int number = dataCopy.length() - i;
+        dataCopy[i] = data[number - 1];
+    }
+
+    return CustomString(dataCopy);
 }
 
 CustomString CustomString::operator*(int count) const
 {
-    return CustomString();
+    CustomString temp;
+    string strCopy = this->data;
+    temp.data = strCopy;
+
+    for (int i = 0; i < count - 1; i++)
+    {
+        temp.pushBack(strCopy);
+    }
+
+    return temp;
 }
 
 //! Task 3: Complete the implementation of the following conversion methods:
@@ -77,10 +101,16 @@ CustomString CustomString::operator*(int count) const
 
 double CustomString::toDouble() const
 {
-    return 0.0;
+    return stod(data);
 }
 
 CustomString CustomString::toUpper() const
 {
-    return CustomString();
+    string dataCopy = data;
+    for (int i = 0; i < dataCopy.length(); i++)
+    {
+        dataCopy[i] = toupper(dataCopy[i]);
+    }
+
+    return CustomString(dataCopy);
 }
