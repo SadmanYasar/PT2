@@ -1,0 +1,7 @@
+1. Pressing the key '+' will enlarge the ball size.
+2. Pressing the key '-' will shrink the ball size.
+3. Pressing the key 'Y' or 'y' will turn the ball to yellow in color.
+4. Pressing the key 'W' or 'w' will turn the ball to white in color.
+5. Pressing the spacebar key will turn the ball to a random color.
+6. Pressing an arrow key will move the ball to the corresponding direction respectively by 10 pixels. 
+   For example pressing the left arrow key will move the ball to the left.
