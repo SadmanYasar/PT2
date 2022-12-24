@@ -68,8 +68,11 @@ int main()
 
     b.draw();
 
+    Ball enemy(screenWidth - 100, screenHeight / 2, 100, COLOR(0, 255, 0));
+    enemy.draw();
     while (key != 27) // 27 is the ASCII code for key Esc
     {
+        enemy.moveBy(enemy.getX() - 10, 0);
         if (kbhit())
         {
             key = getch();
@@ -77,50 +80,8 @@ int main()
             if (key == 0) // special keys like arrow keys need to call to getch() twice.
                 key = getch();
 
-            /* switch (toupper(key))
-            {
-            case 'W':
-                b.undraw();
-                b.setColor(WHITE);
-                b.draw();
-                break;
-            case 'Y':
-                b.undraw();
-                b.setColor(YELLOW);
-                b.draw();
-                break;
-            case ' ':
-                b.undraw();
-                b.setColor(rand() % 16);
-                // b.setColor(rand()% 256);
-                b.draw();
-                break;
-            case '+':
-                b.undraw();
-                b.setSize(b.getSize() + 10);
-                b.draw();
-                break;
-            case '-':
-                b.undraw();
-                b.setSize(b.getSize() - 10);
-                b.draw();
-                break;
-            } */
-
             switch (key)
             {
-            /* case 77:
-                // right
-                b.undraw();
-                b.moveBy(10, 0);
-                b.draw();
-                break;
-            case 75:
-                // left
-                b.undraw();
-                b.moveBy(-10, 0);
-                b.draw();
-                break; */
             case 72:
                 // up
                 b.undraw();
