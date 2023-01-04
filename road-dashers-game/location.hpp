@@ -8,7 +8,7 @@ private:
     int y;
 
 public:
-    Location(int x = 0; int y = 0);
+    Location(int x = 0, int y = 0);
     int getX() const;
     void setX(int x);
     int getY() const;

@@ -1,4 +1,5 @@
 #include <string>
+using namespace std;
 
 #pragma once
 
@@ -8,7 +9,7 @@ private:
     string type;
 
 public:
-    Obstacle() {}
+    Obstacle();
 
     Obstacle(string type) : type(type) {}
 

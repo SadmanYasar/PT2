@@ -7,7 +7,7 @@
 
 class MovingObject
 {
-private:
+protected:
     int color;
     int speed;
     int size;
@@ -15,8 +15,6 @@ private:
 
 public:
     MovingObject();
-    int getColor() const;
-    void setColor(int _color);
     int getSpeed() const;
     void setSpeed(int _speed);
     void move();
@@ -36,7 +34,7 @@ public:
     {
         setcolor(c);
         setfillstyle(SOLID_FILL, c);
-        fillellipse(x, y, size, size);
+        fillellipse(location->getX(), location->getY(), size, size);
     }
 
     void draw() const { _draw(color); }

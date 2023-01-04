@@ -1,5 +1,6 @@
 #include "vehicle.hpp"
 #include <string>
+using namespace std;
 
 /* Vehicle::Vehicle(string n)
 {

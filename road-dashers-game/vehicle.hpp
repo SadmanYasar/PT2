@@ -1,9 +1,11 @@
 #include "moving_object.hpp"
+#include <string>
+using namespace std;
 
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
-class Vehicle extends MovingObject
+class Vehicle : public MovingObject
 {
 private:
     string name;

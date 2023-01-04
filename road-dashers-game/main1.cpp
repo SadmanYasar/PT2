@@ -4,10 +4,6 @@
 #include "location.hpp"
 using namespace std;
 
-void init()
-{
-}
-
 int main()
 {
     int screenWidth = getmaxwidth();
@@ -15,16 +11,16 @@ int main()
     char key = 0;
 
     initwindow(screenWidth, screenHeight, "Simple Animation");
-    Location location1(200, screenHeight / 2);
-    // Vehicle vehicle1(200, screenHeight / 2, 100, COLOR(255, 0, 0));
+    Location playerLocation(200, screenHeight / 2);
 
-    Vehicle vehicle1("Player", COLOR(255, 0, 0), 10, 100, &location1);
+    Vehicle player("Player", COLOR(255, 0, 0), 10, 100, &playerLocation);
 
-    vehicle1.draw();
+    player.draw();
 
-    /* Ball enemy(screenWidth - 100, screenHeight / 2, 100, COLOR(0, 255, 0));
+    Location enemyLocation(screenWidth - 100, screenHeight / 2);
+    Vehicle enemy("Enemy", COLOR(0, 255, 0), 10, 100, &enemyLocation);
     enemy.draw();
-    while (key != 27) // 27 is the ASCII code for key Esc
+    /* while (key != 27) // 27 is the ASCII code for key Esc
     {
         enemy.moveBy(enemy.getX() - 10, 0);
         if (kbhit())
@@ -53,5 +49,6 @@ int main()
             }
         }
     } */
+    system("pause");
     return 0;
 }

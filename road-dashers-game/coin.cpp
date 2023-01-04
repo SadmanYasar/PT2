@@ -5,14 +5,16 @@ Coin::Coin(int v)
     value = v;
 }
 
-int Car::getValue() const
+int Coin::getValue() const
 {
     return value;
 }
 
-void Car::setValue(int v)
+void Coin::setValue(int v)
 {
     value = v;
 }
 
-~Coin() {}
+Coin::~Coin()
+{
+}

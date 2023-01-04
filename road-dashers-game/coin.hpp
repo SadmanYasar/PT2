@@ -3,13 +3,13 @@
 #ifndef COIN_H
 #define COIN_H
 
-class Coin extends MovingObject
+class Coin : public MovingObject
 {
 private:
   int value;
 
 public:
-  Coin();
+  Coin(int v);
   int getValue() const;
   void setValue(int v);
   ~Coin();

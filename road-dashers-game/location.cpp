@@ -20,7 +20,7 @@ void Location::setY(int _y)
     y = _y;
 }
 
-Location::Location(int x = 0; int y = 0)
+Location::Location(int x, int y)
 {
     this->x = x;
     this->y = y;

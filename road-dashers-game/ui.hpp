@@ -1,4 +1,5 @@
 #include <string>
+using namespace std;
 
 #pragma once
 
@@ -31,4 +32,3 @@ public:
             text = t;
       }
 };
-
