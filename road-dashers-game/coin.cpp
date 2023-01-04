@@ -1,6 +1,6 @@
 #include "coin.hpp"
 
-Coin::Coin(int v) const
+Coin::Coin(int v)
 {
     value = v;
 }

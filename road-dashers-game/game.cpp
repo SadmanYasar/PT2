@@ -1,4 +1,4 @@
-#include "include/game.hpp"
+#include "game.hpp"
 
 int Game::getWidth() const { return width; }
 int Game::getHeight() const { return height; }

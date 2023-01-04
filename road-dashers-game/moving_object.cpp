@@ -1,4 +1,4 @@
-#include "include/moving_object.hpp"
+#include "moving_object.hpp"
 #include <string>
 
 string MovingObject::getColor() const

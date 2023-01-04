@@ -1,8 +1,13 @@
 {
     "files.associations": {
+        "*.ejs": "html",
         "iostream": "cpp",
         "string": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "array": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

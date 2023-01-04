@@ -1,9 +1,10 @@
 #include "vehicle.hpp"
+#include <string>
 
-Vehicle::Vehicle(string n) const
+/* Vehicle::Vehicle(string n)
 {
     name = n;
-}
+} */
 
 string Vehicle::getName() const
 {
@@ -15,10 +16,10 @@ void Vehicle::setName(string n)
     name = n;
 }
 
-~Vehicle() {}
+// ~Vehicle() {}
 
 // association
-constructor()
+/* constructor()
 {
     this.coins = [];
     this.obstaclesHit = [];
@@ -33,3 +34,4 @@ hit(obstacle)
 {
     this.obstaclesHit.push(obstacle);
 }
+ */
