@@ -20,9 +20,9 @@ int main()
     Location enemyLocation(screenWidth - 100, screenHeight / 2);
     Vehicle enemy("Enemy", COLOR(0, 255, 0), 10, 100, &enemyLocation);
     enemy.draw();
-    /* while (key != 27) // 27 is the ASCII code for key Esc
+    while (key != 27) // 27 is the ASCII code for key Esc
     {
-        enemy.moveBy(enemy.getX() - 10, 0);
+        enemy.moveBy(enemy.getLocation()->getX() - 10, 0);
         if (kbhit())
         {
             key = getch();
@@ -34,21 +34,20 @@ int main()
             {
             case 72:
                 // up
-                b.undraw();
-                b.moveTo(b.getX(), screenHeight / 2 - 100);
-                b.draw();
+                player.undraw();
+                player.moveTo(player.getLocation()->getX(), screenHeight / 2 - 100);
+                player.draw();
                 break;
             case 80:
                 // down
-                b.undraw();
-                b.moveTo(b.getX(), screenHeight / 2 + 100);
-                b.draw();
+                player.undraw();
+                player.moveTo(player.getLocation()->getX(), screenHeight / 2 + 100);
+                player.draw();
                 break;
             default:
                 break;
             }
         }
-    } */
-    system("pause");
+    }
     return 0;
 }

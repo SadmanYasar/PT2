@@ -47,9 +47,15 @@ public:
 
     void moveBy(int dx, int dy)
     {
-        location->setLocation(location->getX() + dx, location->getY() + dy);
+        // location->setLocation(location->getX() + dx, location->getY() + dy);
+        location->setLocation(0, 0);
         // x += dx;
         // y += dy;
+    }
+
+    Location *getLocation()
+    {
+        return location;
     }
     ~MovingObject();
 };
