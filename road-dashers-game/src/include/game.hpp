@@ -7,6 +7,8 @@ private:
     int height;
 
 public:
-
-    int getWidth(){return width};
+    int getWidth() const;
+    int getHeight() const;
+    void setWidth(int _width);
+    void setHeight(int _height);
 };
