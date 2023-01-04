@@ -1,15 +1,18 @@
+#include "moving_object.hpp"
+
 #ifndef COIN_H
 #define COIN_H
 
-class Coin extends movingObject {
-  private:
-    int value;      
+class Coin extends MovingObject
+{
+private:
+  int value;
 
-  public:
-    Coin();
-    int getValue() const;
-    void setValue(int v);
-    ~Coin();
+public:
+  Coin();
+  int getValue() const;
+  void setValue(int v);
+  ~Coin();
 };
 
 #endif

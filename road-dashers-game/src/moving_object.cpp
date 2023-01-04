@@ -1,25 +1,37 @@
-#include "movingObject.hpp"
+#include "include/moving_object.hpp"
+#include <string>
 
-int Car::getColor() const
+string MovingObject::getColor() const
 {
     return color;
 }
 
-void Car::setColor(string c)
+void MovingObject::setColor(string _color)
 {
-    color = c;
+    color = _color;
 }
 
-int Car::getSpeed() const
+int MovingObject::getSpeed() const
 {
     return speed;
 }
 
-void Car::setSpeed(int s)
+void MovingObject::setSpeed(int _speed)
 {
-    speed = s;
+    speed = _speed;
 }
 
-void Car::move()
+void MovingObject::move()
 {
+    // TODO
+}
+
+MovingObject::MovingObject()
+{
+    // TODO
+}
+
+MovingObject::~MovingObject()
+{
+    delete location;
 }

@@ -8,10 +8,12 @@ private:
     int y;
 
 public:
+    Location();
     int getX() const;
     void setX(int x);
     int getY() const;
     void setY(int y);
+    void setLocation(int x, int y);
 };
 
 #endif

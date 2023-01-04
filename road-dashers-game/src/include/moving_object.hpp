@@ -1,19 +1,59 @@
+#include "location.hpp"
+#include <string>
+#include "graphics.h"
+
 #ifndef MOVINGOBJECT_H
 #define MOVINGOBJECT_H
 
-class movingObject
+class MovingObject
 {
 private:
-    string color;
+    int color;
     int speed;
+    int size;
+    Location *location;
 
 public:
-    Location loc;
+    MovingObject();
     int getColor() const;
-    void setColor(string c);
+    void setColor(int _color);
     int getSpeed() const;
-    void setSpeed(int s);
+    void setSpeed(int _speed);
     void move();
+
+    int left() const { return location->getX() - size; }
+    void left(int l) { location->setX(l + size); }
+    int right() const { return location->getX() + size; }
+    void right(int r) { location->setY(r + size); }
+
+    int getColor() const { return color; }
+    void setColor(int value) { color = value; }
+
+    int getSize() const { return size; }
+    void setSize(int value) { size = value; }
+
+    void _draw(int c) const
+    {
+        setcolor(c);
+        setfillstyle(SOLID_FILL, c);
+        fillellipse(x, y, size, size);
+    }
+
+    void draw() const { _draw(color); }
+    void undraw() const { _draw(BLACK); }
+
+    void moveTo(int _x, int _y)
+    {
+        location->setLocation(_x, _y);
+    }
+
+    void moveBy(int dx, int dy)
+    {
+        location->setLocation(location->getX() + dx, location->getY() + dy);
+        // x += dx;
+        // y += dy;
+    }
+    ~MovingObject();
 };
 
 #endif

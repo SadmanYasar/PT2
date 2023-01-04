@@ -1,22 +1,11 @@
-#include <string>
+#include "Obstacle.h"
 
-class Obstacle
-{
-private:
-    string type;
+// TODO - FIX THIS CODE
 
-public:
-    Obstacle() {}
+Obstacle obs;
+cout << obs.getType() << endl; // prints an empty string
+obs.setType("rock");
+cout << obs.getType() << endl; // prints "rock"
 
-    Obstacle(string type) : type(type) {}
-
-    string getType()
-    {
-        return type;
-    }
-
-    void setType(string t)
-    {
-        type = t;
-    }
-};
+Obstacle obs2("tree");
+cout << obs2.getType() << endl; // prints "tree"

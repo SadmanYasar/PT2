@@ -1,9 +1,34 @@
-#include "UI.h"
+#include <string>
 
-UI ui("Score : "
-      " ",
-      "red");
-cout << ui.getText() << endl; // prints "Score : " " "
-ui.setText                    //("             ");
-        cout
-    << ui.getText() << endl; // prints
+#pragma once
+
+class UI
+{
+private:
+      string text;
+      string color;
+
+public:
+      UI(string text, string color) : text(text), color(color) {}
+
+      string getColor()
+      {
+            return color;
+      }
+
+      void setColor(string c)
+      {
+            color = c;
+      }
+
+      string getText()
+      {
+            return text;
+      }
+
+      void setText(string t)
+      {
+            text = t;
+      }
+};
+

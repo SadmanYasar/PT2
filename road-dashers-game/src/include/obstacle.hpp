@@ -1,9 +1,24 @@
-#include "Obstacle.h"
+#include <string>
 
-Obstacle obs;
-cout << obs.getType() << endl; // prints an empty string
-obs.setType("rock");
-cout << obs.getType() << endl; // prints "rock"
+#pragma once
 
-Obstacle obs2("tree");
-cout << obs2.getType() << endl; // prints "tree"
+class Obstacle
+{
+private:
+    string type;
+
+public:
+    Obstacle() {}
+
+    Obstacle(string type) : type(type) {}
+
+    string getType()
+    {
+        return type;
+    }
+
+    void setType(string t)
+    {
+        type = t;
+    }
+};

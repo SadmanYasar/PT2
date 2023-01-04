@@ -1,4 +1,4 @@
-#include "location.hpp"
+#include "include/location.hpp"
 
 int Location::getX() const
 {
@@ -20,9 +20,17 @@ void Location::setY(int _y)
     y = _y;
 }
 
-constructor()
+Location::Location()
 {
-    this.ui = new UI();
-    this.movingObj = new movingObject();
-    this.game = new Game();
+    // this.ui = new UI();
+    // this.movingObj = new movingObject();
+    // this.game = new Game();
+    x = 0;
+    y = 0;
+}
+
+void Location::setLocation(int x, int y)
+{
+    this->x = x;
+    this->y = y;
 }
