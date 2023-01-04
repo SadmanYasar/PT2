@@ -136,7 +136,30 @@ void Polynomial::input()
 
 Term Polynomial::largestTerm() const
 {
+    int largestExponent = terms[0].exponent(), index = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (largestExponent < terms[i].exponent())
+        {
+            largestExponent = terms[i].exponent();
+            index = i;
+        }
+    }
+    return terms[index];
 }
+
 int Polynomial::degree() const
 {
+    int largestExponent = terms[0].exponent(), index = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (largestExponent < terms[i].exponent())
+        {
+            largestExponent = terms[i].exponent();
+            index = i;
+        }
+    }
+    return terms[index];
 }
