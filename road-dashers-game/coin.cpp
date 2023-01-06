@@ -1,4 +1,4 @@
-#include "coin.hpp"
+#include "include/coin.hpp"
 
 Coin::Coin(int v)
 {

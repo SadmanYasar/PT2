@@ -1,4 +1,4 @@
-#include "obstacle.hpp"
+#include "include/obstacle.hpp"
 #include <iostream>
 #include <string>
 using namespace std;
