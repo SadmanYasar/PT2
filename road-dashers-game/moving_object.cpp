@@ -1,19 +1,9 @@
 #include "include/moving_object.hpp"
 #include <string>
 
-// int MovingObject::getSpeed() const
-// {
-//     return speed;
-// }
-
-// void MovingObject::setSpeed(int _speed)
-// {
-//     speed = _speed;
-// }
-
 MovingObject::MovingObject()
 {
-    // movingObjectCount = 0;
+    //
 }
 
 MovingObject::~MovingObject()

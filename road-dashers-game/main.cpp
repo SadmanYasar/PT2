@@ -108,15 +108,15 @@ int main()
             if (key == 0) // special keys like arrow keys need to call to getch() twice.
                 key = getch();
 
-            switch (key)
+            switch (toupper(key))
             {
-            case 72:
+            case 'W':
                 // up
                 player.undraw();
                 player.moveTo(player.getLocation()->getX(), screenHeight / 2 - 100);
                 player.draw();
                 break;
-            case 80:
+            case 'S':
                 // down
                 player.undraw();
                 player.moveTo(player.getLocation()->getX(), screenHeight / 2 + 100);

@@ -21,7 +21,6 @@ public:
   }
   int getValue() const;
   void setValue(int v);
-  ~Coin();
 };
 
 #endif

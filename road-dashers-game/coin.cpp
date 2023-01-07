@@ -10,7 +10,3 @@ void Coin::setValue(int v)
 {
     value = v;
 }
-
-Coin::~Coin()
-{
-}

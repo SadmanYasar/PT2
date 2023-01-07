@@ -9,13 +9,7 @@ class Vehicle : public MovingObject
 {
 
 public:
-    Vehicle(string name = "", int color = WHITE, int size = 100, Location *location = nullptr)
-    {
-        this->name = name;
-        this->color = color;
-        this->size = size;
-        this->location = location;
-    }
+    Vehicle(string name = "", int color = WHITE, int size = 100, Location *location = nullptr);
 };
 
 #endif

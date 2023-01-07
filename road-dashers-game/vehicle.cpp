@@ -2,27 +2,10 @@
 #include <string>
 using namespace std;
 
-/* Vehicle::Vehicle(string n)
+Vehicle::Vehicle(string name, int color, int size, Location *location)
 {
-    name = n;
-} */
-
-// ~Vehicle() {}
-
-// association
-/* constructor()
-{
-    this.coins = [];
-    this.obstaclesHit = [];
+    this->name = name;
+    this->color = color;
+    this->size = size;
+    this->location = location;
 }
-
-earn(coin)
-{
-    this.coins.push(coin);
-}
-
-hit(obstacle)
-{
-    this.obstaclesHit.push(obstacle);
-}
- */
