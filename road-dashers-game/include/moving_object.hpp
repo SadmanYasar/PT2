@@ -12,14 +12,14 @@ class MovingObject
 protected:
     string name;
     int color;
-    int speed;
+    // int speed;
     int size;
     Location *location;
 
 public:
     MovingObject();
-    int getSpeed() const;
-    void setSpeed(int _speed);
+    // int getSpeed() const;
+    // void setSpeed(int _speed);
 
     int left() const;
     void left(int l);

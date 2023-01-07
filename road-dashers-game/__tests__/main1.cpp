@@ -15,7 +15,6 @@ using namespace std;
 int main()
 {
     bool gameOver = false;
-    // int point = 0;
     int screenWidth = getmaxwidth();
     int screenHeight = getmaxheight();
     char key = 0;
@@ -28,28 +27,28 @@ int main()
     UI score("", COLOR(255, 255, 0), 0, &scoreLocation);
 
     Location playerLocation(200, screenHeight / 2);
-    Vehicle player("Player", COLOR(255, 0, 0), 10, 70, &playerLocation);
+    Vehicle player("Player", COLOR(255, 0, 0), 40, &playerLocation);
 
     player.draw();
 
     Location locations[MAX_MOVING_OBJECTS] = {
         Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 - 100),
+        Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 + 100),
         Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 - 100),
-        Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 - 100),
-        Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 - 100),
+        Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 + 100),
         Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 - 100),
     };
 
     MovingObject movingObjects[MAX_MOVING_OBJECTS] = {
-        Vehicle("Enemy", COLOR(10, 255, 0), 10, 70, &locations[0]),
-        Vehicle("Enemy", COLOR(10, 255, 0), 10, 70, &locations[1]),
-        Coin("Coin", YELLOW, 10, 30, &locations[2]),
-        Coin("Coin", YELLOW, 10, 30, &locations[3]),
-        Vehicle("Enemy", COLOR(10, 255, 0), 10, 70, &locations[4]),
+        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[0]),
+        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[1]),
+        Coin("Coin", YELLOW, 30, &locations[2]),
+        Coin("Coin", YELLOW, 30, &locations[3]),
+        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[4]),
     };
 
     score.setText("YOUR SCORE");
-    while (key != 27 || gameOver != true) // 27 - Esc
+    while (key != 27) // 27 - Esc
     {
         player.draw();
 
@@ -62,11 +61,7 @@ int main()
                 if (name == "Enemy")
                 {
                     gameOver = true;
-                    return 0;
-                }
-                else if (name == "Obstacle")
-                {
-                    /* code */
+                    break;
                 }
                 else if (name == "Coin")
                 {
@@ -76,26 +71,34 @@ int main()
                 }
             }
 
-            int xDistance = screenWidth - movingObjects[i].getLocation()->getX();
             movingObjects[i].undraw();
             movingObjects[i].moveBy(-30, 0);
             movingObjects[i].draw();
 
             score.display();
 
-            // settextstyle(EUROPEAN_FONT, HORIZ_DIR, 2);
-            // bgiout << score;
-            // outstreamxy(getmaxwidth() * 0.91, getmaxheight() * 0.1);
-
             if (movingObjects[i].getLocation()->getX() < 0)
             {
                 movingObjects[i].undraw();
                 // random number between 200 and 900
-                movingObjects[i].moveTo(screenWidth + rand() % 701 + 200, locations[i].getY()); // 1001 = 1200 - 200 + 1
+                movingObjects[i].moveTo(screenWidth + rand() % 701 + 200, locations[i].getY()); // 701 = 900 - 200 + 1
                 movingObjects[i].draw();
             }
         }
 
+        if (gameOver)
+        {
+            Location gameOverLocation(screenWidth / 2, screenHeight / 2);
+            UI gameOverText("GAME OVER!", COLOR(255, 255, 0), 0, &gameOverLocation);
+            gameOverText.display();
+            while (true)
+            {
+                if (kbhit())
+                {
+                    return 0;
+                }
+            }
+        }
         delay(100);
 
         if (kbhit())
@@ -124,5 +127,6 @@ int main()
             }
         }
     }
+
     return 0;
 }

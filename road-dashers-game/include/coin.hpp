@@ -11,11 +11,10 @@ private:
   int value;
 
 public:
-  Coin(string name = "", int color = YELLOW, int speed = 1, int size = 100, Location *location = nullptr, int val = 0)
+  Coin(string name = "", int color = YELLOW, int size = 100, Location *location = nullptr, int val = 0)
   {
     this->name = name;
     this->color = color;
-    this->speed = speed;
     this->size = size;
     this->location = location;
     this->value = val;
