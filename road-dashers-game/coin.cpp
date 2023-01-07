@@ -1,9 +1,5 @@
 #include "include/coin.hpp"
 
-Coin::Coin(int v)
-{
-    value = v;
-}
 
 int Coin::getValue() const
 {

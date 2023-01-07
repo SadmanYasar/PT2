@@ -20,15 +20,36 @@ void UI::setText(string t)
     text = t;
 }
 
-void UI::display()
+int UI::getValue() const
 {
-    setcolor(12);
+    return value;
+}
+
+void UI::setValue(int v)
+{
+    value = v;
+}
+
+void UI::display() const
+{
+    setcolor(color);
     settextstyle(EUROPEAN_FONT, HORIZ_DIR, 2);
-    bgiout << "POINTS";
-    outstreamxy(getmaxwidth() * 0.91, getmaxheight() * 0.1);
-    // outstreamxy(screenWidth * 0.91, screenHeight * 0.1);
-    // Points Counter
-    settextstyle(EUROPEAN_FONT, HORIZ_DIR, 3);
-    bgiout << "00";
-    outstreamxy(getmaxwidth() * 0.93, getmaxheight() * 0.05);
+    bgiout << text;
+    outstreamxy(location->getX(), location->getY());
+    if (value)
+    {
+        settextstyle(EUROPEAN_FONT, HORIZ_DIR, 3);
+        bgiout << value;
+        outstreamxy(location->getX(), location->getY() - 20);
+    }
+}
+
+Location *UI::getLocation()
+{
+    return location;
+}
+
+void UI::setLocation(Location &_location)
+{
+    *location = _location;
 }

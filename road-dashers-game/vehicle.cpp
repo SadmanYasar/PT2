@@ -7,16 +7,6 @@ using namespace std;
     name = n;
 } */
 
-string Vehicle::getName() const
-{
-    return name;
-}
-
-void Vehicle::setName(string n)
-{
-    name = n;
-}
-
 // ~Vehicle() {}
 
 // association

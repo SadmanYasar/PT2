@@ -1,16 +1,16 @@
 #include "location.hpp"
 #include <string>
 #include "graphics.h"
+using namespace std;
 
 #ifndef MOVINGOBJECT_H
 #define MOVINGOBJECT_H
 
 class MovingObject
 {
-private:
-    // static int movingObjectCount;
 
 protected:
+    string name;
     int color;
     int speed;
     int size;
@@ -41,17 +41,11 @@ public:
 
     void moveBy(int dx, int dy);
 
-    // static int getCount()
-    // {
-    //     return movingObjectCount;
-    // }
-
-    // static void incrementCount();
-
-    // static void decrementCount();
-
     Location *getLocation();
     void setLocation(Location &_location);
+
+    string getName() const;
+    void setName(string n);
 
     ~MovingObject();
 };

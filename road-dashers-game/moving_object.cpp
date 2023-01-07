@@ -57,27 +57,17 @@ Location *MovingObject::getLocation()
     return location;
 }
 
-// void MovingObject::incrementCount()
-// {
-//     /*     if (movingObjectCount > 4)
-//         {
-//             return;
-//         } */
-
-//     movingObjectCount++;
-// }
-
-// void MovingObject::decrementCount()
-// {
-//     /*     if (movingObjectCount <= 0 || !movingObjectCount)
-//         {
-//             return;
-//         } */
-
-//     movingObjectCount--;
-// }
-
 void MovingObject::setLocation(Location &_location)
 {
     *location = _location;
+}
+
+string MovingObject::getName() const
+{
+    return name;
+}
+
+void MovingObject::setName(string n)
+{
+    name = n;
 }

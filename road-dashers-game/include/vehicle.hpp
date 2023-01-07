@@ -7,12 +7,8 @@ using namespace std;
 
 class Vehicle : public MovingObject
 {
-private:
-    string name;
-    // Coin *coin;
 
 public:
-    // Vehicle(int _x, int _y, int _size, int _color = WHITE) : x(_x), y(_y), size(_size), color(_color) {}
     Vehicle(string name = "", int color = WHITE, int speed = 1, int size = 100, Location *location = nullptr)
     {
         this->name = name;
@@ -21,12 +17,6 @@ public:
         this->size = size;
         this->location = location;
     }
-    string getName() const;
-    void setName(string n);
-    // void draw();
-    // ~Vehicle();
-    // myVehicle.earn(myCoin);
-    // myVehicle.hit(myObstacle);
 };
 
 #endif
