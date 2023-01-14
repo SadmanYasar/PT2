@@ -21,15 +21,13 @@ int main()
 
     srand(time(0));
 
-    initwindow(screenWidth, screenHeight, "Road Rashers");
-
     Location scoreLocation(screenWidth - 300, screenHeight / 2 - 300);
     UI score("", COLOR(255, 255, 0), 0, &scoreLocation);
 
     Location playerLocation(200, screenHeight / 2);
     Vehicle player("Player", COLOR(255, 0, 0), 40, &playerLocation);
 
-    player.draw();
+    // player.draw();
 
     Location locations[MAX_MOVING_OBJECTS] = {
         Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 - 100),
@@ -48,6 +46,23 @@ int main()
     };
 
     score.setText("YOUR SCORE");
+
+    initwindow(screenWidth, screenHeight, "Road Rashers");
+
+    readimagefile("assets/images/menu2.jpg", 0, 0, screenWidth, screenHeight);
+    // main menu screen
+    while (true)
+    {
+        if (kbhit())
+        {
+            PlaySound(TEXT("assets/sounds/collectcoin.wav"), NULL, SND_ASYNC);
+            closegraph();
+            break;
+        }
+    }
+
+    initwindow(screenWidth, screenHeight, "GAME");
+
     while (key != 27) // 27 - Esc
     {
         player.draw();
@@ -60,11 +75,13 @@ int main()
                 // compare by name
                 if (name == "Enemy")
                 {
+                    PlaySound(TEXT("assets/sounds/crash.wav"), NULL, SND_ASYNC);
                     gameOver = true;
                     break;
                 }
                 else if (name == "Coin")
                 {
+                    PlaySound(TEXT("assets/sounds/collectcoin.wav"), NULL, SND_ASYNC);
                     movingObjects[i].undraw();
                     movingObjects[i].moveTo(screenWidth + rand() % 701 + 200, locations[i].getY());
                     score.setValue(score.getValue() + 1);
