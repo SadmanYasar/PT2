@@ -9,4 +9,10 @@ void Shape::setLocation(int _x, int _y)
 	y = _y;
 }
 
-void Shape::setSelected(bool _selected) {selected = _selected;}
+void Shape::setSelected(bool _selected) { selected = _selected; }
+void Shape::move(int dx, int dy)
+{
+	undraw();
+	setLocation(x + dx, y + dy);
+	draw();
+}

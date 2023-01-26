@@ -4,7 +4,7 @@
 // Semester 2, 2021/2022
 
 // Section: 01
-// Member 1's Name: _____________    Location: ____________ (i.e. where are you currently located)
+// Member 1's Name: Sadman Yasar Sayem    Location: KLG (i.e. where are you currently located)
 // Member 2's Name: _____________    Location: ____________
 
 // Log the time(s) your pair programming sessions
@@ -14,8 +14,6 @@
 
 // Video link:
 //   _________
-
-
 
 #include <graphics.h>
 #include <cmath>
@@ -33,6 +31,35 @@ using namespace std;
 // You may change the max size of the list
 #define COUNT 5
 
+void drawShape(Shape *shape)
+{
+	shape->draw();
+}
+
+Shape *shapes[COUNT];
+void generateListOfShapes(int width, int height)
+{
+	for (int i = 0; i < COUNT; i++)
+	{
+		int side = rand() % 2;
+		int x = 1 + rand() % width;
+		int y = 1 + rand() % height;
+
+		if (side == 0)
+		{
+			int radius = 50 + rand() % 300;
+			shapes[i] = new Circle(x, y, radius);
+		}
+		else
+		{
+			int width = 50 + rand() % 300;
+			int height = 50 + rand() % 300;
+
+			shapes[i] = new Rect(x, y, width, height);
+		}
+	}
+}
+
 int main()
 {
 	int width = getmaxwidth();
@@ -41,10 +68,16 @@ int main()
 
 	/* initialize random seed: */
 	srand(time(NULL));
+	generateListOfShapes(width, height);
+
+	for (int i = 0; i < COUNT; i++)
+	{
+		shapes[i]->draw();
+	}
 
 	char ch = 0;
 
-	while (ch != 27)  // 27 is ESC key
+	while (ch != 27) // 27 is ESC key
 	{
 		if (kbhit())
 		{
