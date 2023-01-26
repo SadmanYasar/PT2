@@ -37,6 +37,8 @@ void drawShape(Shape *shape)
 }
 
 Shape *shapes[COUNT];
+Shape *selectedShape = nullptr;
+
 void generateListOfShapes(int width, int height)
 {
 	for (int i = 0; i < COUNT; i++)
@@ -56,6 +58,37 @@ void generateListOfShapes(int width, int height)
 			int height = 50 + rand() % 300;
 
 			shapes[i] = new Rect(x, y, width, height);
+		}
+	}
+}
+
+void processMouseClick()
+{
+	int mx, my;
+	if (ismouseclick(WM_LBUTTONDOWN))
+	{
+		// capture the mouse location
+		getmouseclick(WM_LBUTTONDOWN, mx, my);
+
+		// Test the location all over the shapes (mx, my)
+		// to find which shape the mouse clicks on (s)
+		for (int i = 0; i < COUNT; i++)
+		{
+			if (shapes[i]->isMouseClicked(mx, my))
+			{
+				if (selectedShape)
+				{
+					selectedShape->toggleSelected();
+				}
+
+				selectedShape = (selectedShape == shapes[i]) ? nullptr : shapes[i];
+
+				if (selectedShape)
+				{
+					selectedShape->toggleSelected();
+				}
+				break;
+			}
 		}
 	}
 }
@@ -85,28 +118,38 @@ int main()
 			switch (toupper(ch))
 			{
 			case '+':
+				if (selectedShape)
+					selectedShape->resize(1.2);
 				break;
 
 			case '-':
+				if (selectedShape)
+					selectedShape->resize(0.8);
 				break;
 
 			case KEY_LEFT:
+				if (selectedShape)
+					selectedShape->move(-10, 0);
 				break;
 
 			case KEY_RIGHT:
+				if (selectedShape)
+					selectedShape->move(10, 0);
 				break;
 
 			case KEY_UP:
+				if (selectedShape)
+					selectedShape->move(0, -10);
 				break;
 
 			case KEY_DOWN:
+				if (selectedShape)
+					selectedShape->move(0, 10);
 				break;
 			}
 		}
 
-		if (ismouseclick(WM_LBUTTONDOWN))
-		{
-		}
+		processMouseClick();
 	}
 	return 0;
 }

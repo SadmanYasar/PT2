@@ -6,14 +6,14 @@
 Rect::Rect(int _x, int _y, int _width, int _height) : width(_width), height(_height), Shape(_x, _y) {}
 void Rect::draw() const
 {
-    setcolor(WHITE);
+    setcolor(selected ? YELLOW : WHITE);
     rectangle(x, y, x + width, y + height);
 }
 
 void Rect::undraw() const
 {
     setcolor(BLACK);
-    rectangle(x, y, width, height);
+    rectangle(x, y, x + width, y + height);
 }
 
 void Rect::resize(double scale)
@@ -26,5 +26,5 @@ void Rect::resize(double scale)
 
 bool Rect::isMouseClicked(int mx, int my) const
 {
-    return true;
+    return (mx >= x && mx <= (x + width) && my <= (y + height) && my >= y) ? true : false;
 }

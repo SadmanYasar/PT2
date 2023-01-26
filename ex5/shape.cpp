@@ -12,7 +12,17 @@ void Shape::setLocation(int _x, int _y)
 void Shape::setSelected(bool _selected) { selected = _selected; }
 void Shape::move(int dx, int dy)
 {
+	if (!selected)
+		return;
+
 	undraw();
 	setLocation(x + dx, y + dy);
+	draw();
+}
+
+void Shape::toggleSelected()
+{
+	undraw();
+	selected = !selected;
 	draw();
 }
