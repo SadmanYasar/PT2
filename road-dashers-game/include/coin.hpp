@@ -11,14 +11,7 @@ private:
   int value;
 
 public:
-  Coin(string name = "", int color = YELLOW, int size = 100, Location *location = nullptr, int val = 0)
-  {
-    this->name = name;
-    this->color = color;
-    this->size = size;
-    this->location = location;
-    this->value = val;
-  }
+  Coin(string name = "", int color = YELLOW, int size = 100, Location *location = nullptr, int val = 0);
   int getValue() const;
   void setValue(int v);
 };

@@ -1,4 +1,14 @@
 #include "include/ui.hpp"
+#include "include/location.hpp"
+#include <string>
+
+UI::UI(string text, int color, int value, Location *location)
+{
+    this->text = text;
+    this->color = color;
+    this->value = value;
+    this->location = location;
+}
 
 int UI::getColor() const
 {

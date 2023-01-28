@@ -14,14 +14,7 @@ private:
       Location *location;
 
 public:
-      UI(string text = "", int color = COLOR(255, 255, 0), int value = 0, Location *location = nullptr)
-      {
-            this->text = text;
-            this->color = color;
-            this->value = value;
-            this->location = location;
-      }
-
+      UI(string text = "", int color = COLOR(255, 255, 0), int value = 0, Location *location = nullptr);
       int getColor() const;
 
       void setColor(int c);

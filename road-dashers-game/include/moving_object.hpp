@@ -16,7 +16,7 @@ protected:
     Location *location;
 
 public:
-    MovingObject();
+    MovingObject(string name = "", int color = YELLOW, int size = 100, Location *location = nullptr);
 
     int left() const;
     void left(int l);

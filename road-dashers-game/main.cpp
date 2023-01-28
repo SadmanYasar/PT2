@@ -12,44 +12,30 @@ using namespace std;
 
 #define MAX_MOVING_OBJECTS 5
 
-int main()
+void checkIfGameOver(Game &gameManager)
 {
-    bool gameOver = false;
-    int screenWidth = getmaxwidth();
-    int screenHeight = getmaxheight();
-    char key = 0;
+    if (gameManager.isGameOver())
+    {
+        Location gameOverLocation(gameManager.getWidth() / 2, gameManager.getHeight() / 2);
+        UI gameOverText("GAME OVER!", COLOR(255, 255, 0), 0, &gameOverLocation);
+        gameOverText.display();
+        while (true)
+        {
+            if (kbhit())
+            {
+                return;
+            }
+        }
+    }
+}
 
-    srand(time(0));
+void initMenu(Game &gameManager)
+{
+    int width = gameManager.getWidth();
+    int height = gameManager.getHeight();
+    initwindow(width, height, "Road Rashers");
 
-    Location scoreLocation(screenWidth - 300, screenHeight / 2 - 300);
-    UI score("", COLOR(255, 255, 0), 0, &scoreLocation);
-
-    Location playerLocation(200, screenHeight / 2);
-    Vehicle player("Player", COLOR(255, 0, 0), 40, &playerLocation);
-
-    // player.draw();
-
-    Location locations[MAX_MOVING_OBJECTS] = {
-        Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 - 100),
-        Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 + 100),
-        Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 - 100),
-        Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 + 100),
-        Location(screenWidth + rand() % 1001 + 200, screenHeight / 2 - 100),
-    };
-
-    MovingObject movingObjects[MAX_MOVING_OBJECTS] = {
-        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[0]),
-        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[1]),
-        Coin("Coin", YELLOW, 30, &locations[2]),
-        Coin("Coin", YELLOW, 30, &locations[3]),
-        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[4]),
-    };
-
-    score.setText("YOUR SCORE");
-
-    initwindow(screenWidth, screenHeight, "Road Rashers");
-
-    readimagefile("assets/images/menu2.jpg", 0, 0, screenWidth, screenHeight);
+    readimagefile("assets/images/menu2.jpg", 0, 0, width, height);
     // main menu screen
     while (true)
     {
@@ -60,10 +46,43 @@ int main()
             break;
         }
     }
+}
 
-    initwindow(screenWidth, screenHeight, "GAME");
+int main()
+{
+    Game gameManager;
+    char key = 0;
 
-    while (key != 27) // 27 - Esc
+    srand(time(NULL));
+
+    initMenu(gameManager);
+
+    Location scoreLocation(gameManager.getWidth() - 300, gameManager.getHeight() / 2 - 300);
+    UI score("", COLOR(255, 255, 0), 0, &scoreLocation);
+    score.setText("YOUR SCORE");
+
+    Location playerLocation(200, gameManager.getHeight() / 2);
+    Vehicle player("Player", COLOR(255, 0, 0), 40, &playerLocation);
+
+    Location locations[MAX_MOVING_OBJECTS] = {
+        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 - 100),
+        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 + 100),
+        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 - 100),
+        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 + 100),
+        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 - 100),
+    };
+
+    MovingObject movingObjects[MAX_MOVING_OBJECTS] = {
+        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[0]),
+        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[1]),
+        Coin("Coin", YELLOW, 30, &locations[2]),
+        Coin("Coin", YELLOW, 30, &locations[3]),
+        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[4]),
+    };
+
+    initwindow(gameManager.getWidth(), gameManager.getHeight(), "GAME");
+
+    do // 27 - Esc
     {
         player.draw();
 
@@ -76,14 +95,14 @@ int main()
                 if (name == "Enemy")
                 {
                     PlaySound(TEXT("assets/sounds/crash.wav"), NULL, SND_ASYNC);
-                    gameOver = true;
+                    gameManager.setGameOver(true);
                     break;
                 }
                 else if (name == "Coin")
                 {
                     PlaySound(TEXT("assets/sounds/collectcoin.wav"), NULL, SND_ASYNC);
                     movingObjects[i].undraw();
-                    movingObjects[i].moveTo(screenWidth + rand() % 701 + 200, locations[i].getY());
+                    movingObjects[i].moveTo(gameManager.getWidth() + rand() % 701 + 200, locations[i].getY());
                     score.setValue(score.getValue() + 1);
                 }
             }
@@ -98,27 +117,15 @@ int main()
             {
                 movingObjects[i].undraw();
                 // random number between 200 and 900
-                movingObjects[i].moveTo(screenWidth + rand() % 701 + 200, locations[i].getY()); // 701 = 900 - 200 + 1
+                movingObjects[i].moveTo(gameManager.getWidth() + rand() % 701 + 200, locations[i].getY()); // 701 = 900 - 200 + 1
                 movingObjects[i].draw();
             }
         }
 
-        if (gameOver)
-        {
-            Location gameOverLocation(screenWidth / 2, screenHeight / 2);
-            UI gameOverText("GAME OVER!", COLOR(255, 255, 0), 0, &gameOverLocation);
-            gameOverText.display();
-            while (true)
-            {
-                if (kbhit())
-                {
-                    return 0;
-                }
-            }
-        }
+        checkIfGameOver(gameManager);
         delay(100);
 
-        if (kbhit())
+        if (kbhit() && gameManager.isGameOver() == false)
         {
             key = getch();
 
@@ -130,20 +137,20 @@ int main()
             case 'W':
                 // up
                 player.undraw();
-                player.moveTo(player.getLocation()->getX(), screenHeight / 2 - 100);
+                player.moveTo(player.getLocation()->getX(), gameManager.getHeight() / 2 - 100);
                 player.draw();
                 break;
             case 'S':
                 // down
                 player.undraw();
-                player.moveTo(player.getLocation()->getX(), screenHeight / 2 + 100);
+                player.moveTo(player.getLocation()->getX(), gameManager.getHeight() / 2 + 100);
                 player.draw();
                 break;
             default:
                 break;
             }
         }
-    }
+    } while (gameManager.isGameOver() == false);
 
     return 0;
 }
