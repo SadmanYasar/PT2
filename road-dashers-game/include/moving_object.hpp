@@ -44,6 +44,8 @@ public:
     string getName() const;
     void setName(string n);
 
+    // bool hasCollided()
+
     ~MovingObject();
 };
 

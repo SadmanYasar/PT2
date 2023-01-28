@@ -36,7 +36,6 @@ void initMenu(Game &gameManager)
     initwindow(width, height, "Road Rashers");
 
     readimagefile("assets/images/menu2.jpg", 0, 0, width, height);
-    // main menu screen
     while (true)
     {
         if (kbhit())
@@ -48,6 +47,14 @@ void initMenu(Game &gameManager)
     }
 }
 
+// TODO - PLAYER, COIN, OBSTACLE inherit from MOVING OBJECT
+/*
+   - these classes will have move (polymorphic),
+   - coin, obstacle will inherit from one class that inherits from moving object
+   - coin, obstacle will have speedFactor
+   - coin, obstacle will have collide(polymorphic)
+   - Replace shapes with images
+*/
 int main()
 {
     Game gameManager;
@@ -82,7 +89,7 @@ int main()
 
     initwindow(gameManager.getWidth(), gameManager.getHeight(), "GAME");
 
-    do // 27 - Esc
+    do
     {
         player.draw();
 
