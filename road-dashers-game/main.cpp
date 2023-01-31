@@ -1,16 +1,22 @@
 #include <graphics.h>
 #include <iostream>
-#include "include/vehicle.hpp"
+#include "include/player.hpp"
+#include "include/collider.hpp"
+#include "include/enemy_vehicle.hpp"
+#include "include/obstacle.hpp"
 #include "include/location.hpp"
-#include "include/moving_object.hpp"
 #include "include/game.hpp"
 #include "include/coin.hpp"
 #include "include/ui.hpp"
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 using namespace std;
 
-#define MAX_MOVING_OBJECTS 5
+#define MAX_MOVING_OBJECTS 6
+
+Location *locations[MAX_MOVING_OBJECTS];
+Collider *colliders[MAX_MOVING_OBJECTS];
 
 void checkIfGameOver(Game &gameManager)
 {
@@ -47,20 +53,93 @@ void initMenu(Game &gameManager)
     }
 }
 
-// TODO - PLAYER, COIN, OBSTACLE inherit from MOVING OBJECT
-/*
-   - these classes will have move (polymorphic),
-   - coin, obstacle will inherit from one class that inherits from moving object
-   - coin, obstacle will have speedFactor
-   - coin, obstacle will have collide(polymorphic)
-   - Replace shapes with images
-*/
+void generateLocations(Game &gameManager)
+{
+    for (int i = 0; i < MAX_MOVING_OBJECTS; i++)
+    {
+        int side = rand() % 2;
+        if (side == 0)
+        {
+            locations[i] = new Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 + 100);
+        }
+        else
+        {
+            locations[i] = new Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 - 100);
+        }
+    }
+}
+
+bool collidedWithCollider(Collider *c1, Collider *c2)
+{
+    int cx1 = c1->getLocation()->getX();
+    int cx2 = c2->getLocation()->getX();
+    int cy1 = c2->getLocation()->getY();
+    int cy2 = c2->getLocation()->getY();
+    int cr1 = c1->getSize();
+    int cr2 = c2->getSize();
+
+    return (sqrt(pow(cx2 - cx1, 2) + pow(cy2 - cy1, 2)) <= (cr1 + cr2)) ? true : false;
+}
+
+void handleOverLap()
+{
+    for (int i = 0; i < MAX_MOVING_OBJECTS; i++)
+    {
+        for (int j = 0; j < MAX_MOVING_OBJECTS; j++)
+        {
+            if (collidedWithCollider(colliders[i], colliders[j]))
+            {
+                // colliders[i]->move(getmaxwidth() + rand() % 300 + 100);
+                colliders[i]->move(-10);
+                // colliders[i]->moveBy(getmaxwidth() + rand() % 800 + 200, 0);
+            }
+        }
+    }
+}
+
+void generateColliders()
+{
+    int count = 0;
+    for (int i = 0; i < MAX_MOVING_OBJECTS; i++)
+    {
+        if (count < 2)
+        {
+            colliders[i] = new Coin(YELLOW, 30, locations[i]);
+        }
+        else if (count >= 2 && count < 4)
+        {
+            colliders[i] = new Obstacle(BLUE, 40, locations[i]);
+        }
+        else
+        {
+            colliders[i] = new EnemyVehicle(GREEN, 40, locations[i]);
+        }
+
+        count = count + 1;
+    }
+}
+
+void relocateCollider(Collider *collider, int w)
+{
+    if (collider->getLocation()->getX() < 0)
+    {
+        collider->undraw();
+        // random number between 200 and 900
+        collider->moveTo(w + rand() % 701 + 200, collider->getLocation()->getY()); // 701 = 900 - 200 + 1
+        collider->draw();
+    }
+}
+
 int main()
 {
     Game gameManager;
+
     char key = 0;
 
-    srand(time(NULL));
+    srand(time(0));
+
+    generateLocations(gameManager);
+    generateColliders();
 
     initMenu(gameManager);
 
@@ -69,65 +148,26 @@ int main()
     score.setText("YOUR SCORE");
 
     Location playerLocation(200, gameManager.getHeight() / 2);
-    Vehicle player("Player", COLOR(255, 0, 0), 40, &playerLocation);
-
-    Location locations[MAX_MOVING_OBJECTS] = {
-        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 - 100),
-        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 + 100),
-        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 - 100),
-        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 + 100),
-        Location(gameManager.getWidth() + rand() % 1001 + 200, gameManager.getHeight() / 2 - 100),
-    };
-
-    MovingObject movingObjects[MAX_MOVING_OBJECTS] = {
-        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[0]),
-        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[1]),
-        Coin("Coin", YELLOW, 30, &locations[2]),
-        Coin("Coin", YELLOW, 30, &locations[3]),
-        Vehicle("Enemy", COLOR(10, 255, 0), 40, &locations[4]),
-    };
+    Player player(COLOR(255, 0, 0), 40, &playerLocation);
 
     initwindow(gameManager.getWidth(), gameManager.getHeight(), "GAME");
 
     do
     {
+        score.display();
+
         player.draw();
 
         for (int i = 0; i < MAX_MOVING_OBJECTS - 1; i++)
         {
-            if (movingObjects[i].getLocation()->getX() - player.getLocation()->getX() < 100 && movingObjects[i].getLocation()->getX() - player.getLocation()->getX() > 0 && movingObjects[i].getLocation()->getY() == player.getLocation()->getY())
-            {
-                string name = movingObjects[i].getName();
-                // compare by name
-                if (name == "Enemy")
-                {
-                    PlaySound(TEXT("assets/sounds/crash.wav"), NULL, SND_ASYNC);
-                    gameManager.setGameOver(true);
-                    break;
-                }
-                else if (name == "Coin")
-                {
-                    PlaySound(TEXT("assets/sounds/collectcoin.wav"), NULL, SND_ASYNC);
-                    movingObjects[i].undraw();
-                    movingObjects[i].moveTo(gameManager.getWidth() + rand() % 701 + 200, locations[i].getY());
-                    score.setValue(score.getValue() + 1);
-                }
-            }
+            colliders[i]->handleCollision(player, score, gameManager);
 
-            movingObjects[i].undraw();
-            movingObjects[i].moveBy(-30, 0);
-            movingObjects[i].draw();
+            colliders[i]->move(-30);
 
-            score.display();
-
-            if (movingObjects[i].getLocation()->getX() < 0)
-            {
-                movingObjects[i].undraw();
-                // random number between 200 and 900
-                movingObjects[i].moveTo(gameManager.getWidth() + rand() % 701 + 200, locations[i].getY()); // 701 = 900 - 200 + 1
-                movingObjects[i].draw();
-            }
+            relocateCollider(colliders[i], gameManager.getWidth());
         }
+
+        handleOverLap();
 
         checkIfGameOver(gameManager);
         delay(100);
@@ -136,22 +176,13 @@ int main()
         {
             key = getch();
 
-            if (key == 0) // special keys like arrow keys need to call to getch() twice.
-                key = getch();
-
             switch (toupper(key))
             {
             case 'W':
-                // up
-                player.undraw();
-                player.moveTo(player.getLocation()->getX(), gameManager.getHeight() / 2 - 100);
-                player.draw();
+                player.move(gameManager.getHeight() / 2 - 100);
                 break;
             case 'S':
-                // down
-                player.undraw();
-                player.moveTo(player.getLocation()->getX(), gameManager.getHeight() / 2 + 100);
-                player.draw();
+                player.move(gameManager.getHeight() / 2 + 100);
                 break;
             default:
                 break;

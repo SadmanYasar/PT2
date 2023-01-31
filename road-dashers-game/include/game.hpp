@@ -15,5 +15,4 @@ public:
     void setHeight(int _height);
     bool isGameOver() const;
     void setGameOver(bool state);
-    // void initMenu();
 };

@@ -1,29 +1,29 @@
 #include "include/moving_object.hpp"
 #include <string>
 
-MovingObject::MovingObject(string _name, int _color, int _size, Location *_location) : name(_name), color(_color), size(_size), location(_location) {}
+MovingObject::MovingObject(int _color, int _size, Location *_location) : color(_color), size(_size), location(_location) {}
 
 MovingObject::~MovingObject()
 {
     location = nullptr;
 }
 
-int MovingObject::left() const
-{
-    return location->getX() - size;
-}
-void MovingObject::left(int l)
-{
-    location->setX(l + size);
-}
-int MovingObject::right() const
-{
-    return location->getX() + size;
-}
-void MovingObject::right(int r)
-{
-    location->setY(r + size);
-}
+// int MovingObject::left() const
+// {
+//     return location->getX() - size;
+// }
+// void MovingObject::left(int l)
+// {
+//     location->setX(l + size);
+// }
+// int MovingObject::right() const
+// {
+//     return location->getX() + size;
+// }
+// void MovingObject::right(int r)
+// {
+//     location->setY(r + size);
+// }
 
 int MovingObject::getColor() const
 {
@@ -77,14 +77,4 @@ Location *MovingObject::getLocation()
 void MovingObject::setLocation(Location &_location)
 {
     *location = _location;
-}
-
-string MovingObject::getName() const
-{
-    return name;
-}
-
-void MovingObject::setName(string n)
-{
-    name = n;
 }

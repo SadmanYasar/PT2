@@ -29,7 +29,7 @@ int main()
     UI score("", COLOR(255, 255, 0), 0, &scoreLocation);
 
     Location playerLocation(200, screenHeight / 2);
-    Vehicle player("Player", COLOR(255, 0, 0), 50, &playerLocation);
+    Player player("Player", COLOR(255, 0, 0), 50, &playerLocation);
 
     Location coinLocation(screenWidth + rand() % 701 + 200, screenHeight / 2);
     Coin coin("Coin", COLOR(10, 255, 0), 30, &coinLocation);
