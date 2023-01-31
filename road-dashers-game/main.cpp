@@ -35,10 +35,10 @@ void checkIfGameOver(Game &gameManager)
     }
 }
 
-void initMenu(Game &gameManager)
+void initMenu()
 {
-    int width = gameManager.getWidth();
-    int height = gameManager.getHeight();
+    int width = getmaxwidth();
+    int height = getmaxheight();
     initwindow(width, height, "Road Rashers");
 
     readimagefile("assets/images/menu2.jpg", 0, 0, width, height);
@@ -51,6 +51,65 @@ void initMenu(Game &gameManager)
             break;
         }
     }
+}
+
+void game()
+{
+    Game gameManager;
+
+    char key = 0;
+
+    srand(time(0));
+
+    generateLocations(gameManager);
+    generateColliders();
+
+    Location scoreLocation(gameManager.getWidth() - 300, gameManager.getHeight() / 2 - 300);
+    UI score("", COLOR(255, 255, 0), 0, &scoreLocation);
+    score.setText("YOUR SCORE");
+
+    Location playerLocation(200, gameManager.getHeight() / 2);
+    Player player(COLOR(255, 0, 0), 40, &playerLocation);
+
+    initwindow(gameManager.getWidth(), gameManager.getHeight(), "GAME");
+
+    do
+    {
+        score.display();
+
+        player.draw();
+
+        for (int i = 0; i < MAX_MOVING_OBJECTS - 1; i++)
+        {
+            colliders[i]->handleCollision(player, score, gameManager);
+
+            colliders[i]->move(-30);
+
+            relocateCollider(colliders[i], gameManager.getWidth());
+        }
+
+        handleOverLap();
+
+        checkIfGameOver(gameManager);
+        delay(100);
+
+        if (kbhit() && gameManager.isGameOver() == false)
+        {
+            key = getch();
+
+            switch (toupper(key))
+            {
+            case 'W':
+                player.move(gameManager.getHeight() / 2 - 100);
+                break;
+            case 'S':
+                player.move(gameManager.getHeight() / 2 + 100);
+                break;
+            default:
+                break;
+            }
+        }
+    } while (gameManager.isGameOver() == false);
 }
 
 void generateLocations(Game &gameManager)
@@ -132,63 +191,8 @@ void relocateCollider(Collider *collider, int w)
 
 int main()
 {
-    Game gameManager;
-
-    char key = 0;
-
-    srand(time(0));
-
-    generateLocations(gameManager);
-    generateColliders();
-
-    initMenu(gameManager);
-
-    Location scoreLocation(gameManager.getWidth() - 300, gameManager.getHeight() / 2 - 300);
-    UI score("", COLOR(255, 255, 0), 0, &scoreLocation);
-    score.setText("YOUR SCORE");
-
-    Location playerLocation(200, gameManager.getHeight() / 2);
-    Player player(COLOR(255, 0, 0), 40, &playerLocation);
-
-    initwindow(gameManager.getWidth(), gameManager.getHeight(), "GAME");
-
-    do
-    {
-        score.display();
-
-        player.draw();
-
-        for (int i = 0; i < MAX_MOVING_OBJECTS - 1; i++)
-        {
-            colliders[i]->handleCollision(player, score, gameManager);
-
-            colliders[i]->move(-30);
-
-            relocateCollider(colliders[i], gameManager.getWidth());
-        }
-
-        handleOverLap();
-
-        checkIfGameOver(gameManager);
-        delay(100);
-
-        if (kbhit() && gameManager.isGameOver() == false)
-        {
-            key = getch();
-
-            switch (toupper(key))
-            {
-            case 'W':
-                player.move(gameManager.getHeight() / 2 - 100);
-                break;
-            case 'S':
-                player.move(gameManager.getHeight() / 2 + 100);
-                break;
-            default:
-                break;
-            }
-        }
-    } while (gameManager.isGameOver() == false);
+    initMenu();
+    game();
 
     return 0;
 }
