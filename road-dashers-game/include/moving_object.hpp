@@ -17,11 +17,6 @@ protected:
 public:
     MovingObject(int color = YELLOW, int size = 100, Location *location = nullptr);
 
-    // int left() const;
-    // void left(int l);
-    // int right() const;
-    // void right(int r);
-
     int getColor() const;
     void setColor(int value);
 

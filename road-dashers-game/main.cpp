@@ -18,7 +18,7 @@ using namespace std;
 Location *locations[MAX_MOVING_OBJECTS];
 Collider *colliders[MAX_MOVING_OBJECTS];
 
-void checkIfGameOver(Game &gameManager)
+void checkIfGameOver(Game &gameManager, int score)
 {
     if (gameManager.isGameOver())
     {
@@ -29,7 +29,7 @@ void checkIfGameOver(Game &gameManager)
         {
             if (kbhit())
             {
-                return;
+                exit(0);
             }
         }
     }
@@ -51,65 +51,6 @@ void initMenu()
             break;
         }
     }
-}
-
-void game()
-{
-    Game gameManager;
-
-    char key = 0;
-
-    srand(time(0));
-
-    generateLocations(gameManager);
-    generateColliders();
-
-    Location scoreLocation(gameManager.getWidth() - 300, gameManager.getHeight() / 2 - 300);
-    UI score("", COLOR(255, 255, 0), 0, &scoreLocation);
-    score.setText("YOUR SCORE");
-
-    Location playerLocation(200, gameManager.getHeight() / 2);
-    Player player(COLOR(255, 0, 0), 40, &playerLocation);
-
-    initwindow(gameManager.getWidth(), gameManager.getHeight(), "GAME");
-
-    do
-    {
-        score.display();
-
-        player.draw();
-
-        for (int i = 0; i < MAX_MOVING_OBJECTS - 1; i++)
-        {
-            colliders[i]->handleCollision(player, score, gameManager);
-
-            colliders[i]->move(-30);
-
-            relocateCollider(colliders[i], gameManager.getWidth());
-        }
-
-        handleOverLap();
-
-        checkIfGameOver(gameManager);
-        delay(100);
-
-        if (kbhit() && gameManager.isGameOver() == false)
-        {
-            key = getch();
-
-            switch (toupper(key))
-            {
-            case 'W':
-                player.move(gameManager.getHeight() / 2 - 100);
-                break;
-            case 'S':
-                player.move(gameManager.getHeight() / 2 + 100);
-                break;
-            default:
-                break;
-            }
-        }
-    } while (gameManager.isGameOver() == false);
 }
 
 void generateLocations(Game &gameManager)
@@ -148,9 +89,7 @@ void handleOverLap()
         {
             if (collidedWithCollider(colliders[i], colliders[j]))
             {
-                // colliders[i]->move(getmaxwidth() + rand() % 300 + 100);
                 colliders[i]->move(-10);
-                // colliders[i]->moveBy(getmaxwidth() + rand() % 800 + 200, 0);
             }
         }
     }
@@ -178,15 +117,68 @@ void generateColliders()
     }
 }
 
-void relocateCollider(Collider *collider, int w)
+void game()
 {
-    if (collider->getLocation()->getX() < 0)
+    Game gameManager;
+
+    char key = 0;
+
+    srand(time(0));
+
+    generateLocations(gameManager);
+    generateColliders();
+
+    Location scoreLocation(gameManager.getWidth() - 300, gameManager.getHeight() / 2 - 300);
+    UI score("", COLOR(255, 255, 0), 0, &scoreLocation);
+    score.setText("YOUR SCORE");
+
+    Location playerLocation(200, gameManager.getHeight() / 2);
+    Player player(COLOR(255, 0, 0), 40, &playerLocation);
+
+    initwindow(gameManager.getWidth(), gameManager.getHeight(), "GAME");
+
+    do
     {
-        collider->undraw();
-        // random number between 200 and 900
-        collider->moveTo(w + rand() % 701 + 200, collider->getLocation()->getY()); // 701 = 900 - 200 + 1
-        collider->draw();
-    }
+        if (score.getValue() < 0)
+        {
+            score.setValue(0);
+        }
+
+        score.display();
+
+        player.draw();
+
+        for (int i = 0; i < MAX_MOVING_OBJECTS - 1; i++)
+        {
+            colliders[i]->handleCollision(player, score, gameManager);
+
+            colliders[i]->move(-30);
+
+            colliders[i]->relocateCollider(colliders[i], gameManager.getWidth());
+        }
+
+        handleOverLap();
+
+        checkIfGameOver(gameManager, score.getValue());
+        delay(100);
+
+        if (kbhit() && gameManager.isGameOver() == false)
+        {
+            key = getch();
+
+            switch (toupper(key))
+            {
+            case 'W':
+                player.move(gameManager.getHeight() / 2 - 100);
+                break;
+            case 'S':
+                player.move(gameManager.getHeight() / 2 + 100);
+                break;
+            default:
+                break;
+            }
+        }
+    } while (gameManager.isGameOver() == false || score.getValue() >= 0);
 }
 
 int main()

@@ -8,23 +8,6 @@ MovingObject::~MovingObject()
     location = nullptr;
 }
 
-// int MovingObject::left() const
-// {
-//     return location->getX() - size;
-// }
-// void MovingObject::left(int l)
-// {
-//     location->setX(l + size);
-// }
-// int MovingObject::right() const
-// {
-//     return location->getX() + size;
-// }
-// void MovingObject::right(int r)
-// {
-//     location->setY(r + size);
-// }
-
 int MovingObject::getColor() const
 {
     return color;
