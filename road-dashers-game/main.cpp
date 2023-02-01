@@ -13,7 +13,7 @@
 #include <cmath>
 using namespace std;
 
-#define MAX_MOVING_OBJECTS 6
+#define MAX_MOVING_OBJECTS 7
 
 Location *locations[MAX_MOVING_OBJECTS];
 Collider *colliders[MAX_MOVING_OBJECTS];
@@ -87,7 +87,7 @@ void handleOverLap()
     {
         for (int j = 0; j < MAX_MOVING_OBJECTS; j++)
         {
-            if (collidedWithCollider(colliders[i], colliders[j]))
+            if (i != j && collidedWithCollider(colliders[i], colliders[j]))
             {
                 colliders[i]->move(-10);
             }
@@ -106,11 +106,11 @@ void generateColliders()
         }
         else if (count >= 2 && count < 4)
         {
-            colliders[i] = new Obstacle(BLUE, 40, locations[i]);
+            colliders[i] = new EnemyVehicle(GREEN, 40, locations[i]);
         }
         else
         {
-            colliders[i] = new EnemyVehicle(GREEN, 40, locations[i]);
+            colliders[i] = new Obstacle(BLUE, 40, locations[i]);
         }
 
         count = count + 1;
@@ -154,7 +154,7 @@ void game()
 
             colliders[i]->move(-30);
 
-            colliders[i]->relocateCollider(colliders[i], gameManager.getWidth());
+            colliders[i]->relocateCollider(colliders[i], gameManager.getWidth(), gameManager);
         }
 
         handleOverLap();
@@ -178,7 +178,7 @@ void game()
                 break;
             }
         }
-    } while (gameManager.isGameOver() == false || score.getValue() >= 0);
+    } while (gameManager.isGameOver() == false);
 }
 
 int main()

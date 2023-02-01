@@ -36,8 +36,6 @@ public:
     void setLocation(Location &_location);
 
     virtual void move(int d) = 0;
-
-    ~MovingObject();
 };
 
 #endif

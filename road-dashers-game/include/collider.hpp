@@ -14,5 +14,5 @@ public:
     void move(int d);
     bool hasHitPlayer(Player &player);
     virtual void handleCollision(Player &player, UI &score, Game &gameManager) = 0;
-    void relocateCollider(Collider *collider, int w);
+    void relocateCollider(Collider *collider, int w, Game gameManager);
 };

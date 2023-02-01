@@ -3,11 +3,6 @@
 
 MovingObject::MovingObject(int _color, int _size, Location *_location) : color(_color), size(_size), location(_location) {}
 
-MovingObject::~MovingObject()
-{
-    location = nullptr;
-}
-
 int MovingObject::getColor() const
 {
     return color;
