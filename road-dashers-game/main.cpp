@@ -1,3 +1,11 @@
+/* 
+========================
+PROGRAMMING TECHNIQUE 2
+TEAM PATHFINDERS
+ROAD DASHERS GAME
+========================
+*/
+
 #include <graphics.h>
 #include <iostream>
 #include "include/player.hpp"
